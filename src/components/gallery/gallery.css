@@ -1,0 +1,69 @@
+@import url("https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css");
+
+:host {
+  display: inline-block;
+}
+.d-none {
+  display: none;
+}
+.viewer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease-in-out;
+  cursor: pointer;
+}
+.viewer img {
+  cursor: default;
+  filter: blur(8px);
+  max-height: 90vh;
+  max-width: 90vw;
+  transition: filter 0.15s ease-in-out;
+}
+.viewer--visible {
+  opacity: 1;
+  background-color: rgba(0,0,0,0.85);
+  pointer-events: auto;
+}
+.viewer--visible img {
+  filter: blur(0px);
+}
+.card-columns {
+  overflow: hidden;
+}
+.card-columns img {
+  display: block;
+  width: 100%;
+  transition: transform 0.25s ease-in-out;
+  cursor: pointer;
+}
+.card-columns img.focused {
+  position: fixed;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  max-width: 600px;
+}
+@media (min-width: 461px) {
+  .card-columns {
+      -webkit-column-count: 2;
+      -moz-column-count: 2;
+      column-count: 2;
+  }
+}
+@media (min-width: 768px) {
+  .card-columns {
+      -webkit-column-count: 3;
+      -moz-column-count: 3;
+      column-count: 3;
+  }
+}
