@@ -15,7 +15,8 @@ export class MyComponent {
   componentWillLoad() {
     this.images = [];
     const imageNodes = this.element.querySelectorAll('img');
-    imageNodes.forEach(img => {
+    console.log(Array.from(imageNodes));
+    Array.from(imageNodes).forEach(img => {
       this.images.push(img.outerHTML);
     });
   }
