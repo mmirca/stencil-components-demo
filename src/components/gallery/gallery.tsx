@@ -10,9 +10,9 @@ export class MyComponent {
   @Element() element: HTMLElement;
   @State() images: string[] = [];
   viewer?: HTMLElement;
+  viewerImg?: HTMLImageElement;
 
   componentWillLoad() {
-    console.log('Will load');
     this.images = [];
     const imageNodes = this.element.querySelectorAll('img');
     imageNodes.forEach(img => {
@@ -23,6 +23,19 @@ export class MyComponent {
   viewImage(imgHTML: string) {
     this.viewer.innerHTML = imgHTML;
     this.viewer.classList.add('viewer--visible');
+    this.viewerImg = this.viewer.querySelector('img');
+    this.viewerImg.classList.add('viewer__img');
+  }
+
+  hideViewer(e: MouseEvent) {
+    const imgRect = this.viewerImg.getBoundingClientRect();
+    const clickedOutsideImgX = e.clientX < imgRect.left || e.clientX > (imgRect.left + imgRect.width);
+    const clickedOutsideImgY = e.clientY < imgRect.top || e.clientY > (imgRect.top + imgRect.height);
+    if (clickedOutsideImgX || clickedOutsideImgY) {
+      this.viewer.classList.remove('viewer--visible');
+    } else {
+      this.viewerImg.classList.toggle('viewer__img--enlarged');
+    }
   }
 
   render() {
@@ -37,7 +50,7 @@ export class MyComponent {
           </div>
         </div>
       </div>
-      <div ref={ (el => this.viewer = el).bind(this) } id="viewer" class="viewer"></div>
+      <div ref={ (el => this.viewer = el).bind(this) } onClick={ this.hideViewer.bind(this) } id="viewer" class="viewer"></div>
       </div>;
   }
 }
